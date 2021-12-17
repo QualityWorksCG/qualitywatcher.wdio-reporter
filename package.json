@@ -1,0 +1,15 @@
+{
+  "name": "@qualitywatcher/wdio-reporter",
+  "version": "1.0.0",
+  "description": "",
+  "resolveJsonModule": true,
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Orane Findley",
+  "license": "ISC",
+  "dependencies": {
+    "@wdio/reporter": "^7.16.11"
+  }
+}
