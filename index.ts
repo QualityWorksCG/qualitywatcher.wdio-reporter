@@ -28,7 +28,7 @@ export default class qwservice extends WDIOReporter {
         let result = {
             suite_id: this.getSuiteId(test.title),
             test_id: this.getTestId(test.title),
-            comment: test.title,
+            comment: test.error?.message || '',
             status: test.state,
             time: test.duration
         }
@@ -39,7 +39,7 @@ export default class qwservice extends WDIOReporter {
     onSuiteEnd() {
         try {
             this.checkDirectory(this.dir)
-            fs.writeFileSync(this.dir + `/suite-${this.results[0].suite_id}.json`, JSON.stringify(this.results))
+            fs.writeFileSync(this.dir + `/Suite-${this.results[0].suite_id}.json`, JSON.stringify(this.results))
         } catch (err) {
             console.error(err)
         }
@@ -47,12 +47,12 @@ export default class qwservice extends WDIOReporter {
 
     getTestId(testName) {
         let caseRegex = /(?<=C)\d*?(?=])/ig
-        return parseInt(testName.match(caseRegex))
+        return parseInt(testName.match(caseRegex)[0])
     }
 
     getSuiteId(testName) {
         let suiteRegex = /(?<=S)\d*?(?=C)/ig
-        return parseInt(testName.match(suiteRegex))
+        return parseInt(testName.match(suiteRegex)[0])
     }
 
     checkDirectory(dir) {
