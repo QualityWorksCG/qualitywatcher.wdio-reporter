@@ -3,13 +3,20 @@
   "version": "1.0.0",
   "description": "",
   "resolveJsonModule": true,
-  "main": "index.ts",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "prerelease": "cp package.json README.md lib",
+    "release": "npm publish ./lib"
   },
   "author": "Orane Findley",
   "license": "ISC",
   "dependencies": {
     "@wdio/reporter": "^7.16.11"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.25",
+    "typescript": "^4.6.3"
   }
 }
