@@ -2,7 +2,7 @@
 
 Publishes [WebdriverIO](https://webdriver.io/) runs on QualityWatcher.
 
-This reporter works in conjunction with the `@qualitywatcher/wdio-service`
+This reporter works in conjunction with the [`@qualitywatcher/wdio-service`](https://www.npmjs.com/package/@qualitywatcher/wdio-service)
 
 ## Install
 
@@ -48,4 +48,4 @@ it("S12C123Can authenticate a valid user", ...
 it("Can authenticate a valid userS5C123", ...
 ```
 
-4. Install `@qualitywatcher/wdio-service` this reporter works in conjunction with that service.
+4. Install [`@qualitywatcher/wdio-service`](https://www.npmjs.com/package/@qualitywatcher/wdio-service) this reporter works in conjunction with that service.
