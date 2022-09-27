@@ -47,7 +47,7 @@ export default class qwservice extends WDIOReporter {
     try {
       this.checkDirectory(this.dir);
       fs.writeFileSync(
-        this.dir + `/Suite-${this.results[0].suite_id}.json`,
+        this.dir + `/Suite-${this.results[0].suite_id}[${this.generateRandomString()}].json`,
         JSON.stringify(this.results)
       );
     } catch (err) {
@@ -73,5 +73,9 @@ export default class qwservice extends WDIOReporter {
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir);
     }
+  }
+
+  generateRandomString(){
+    return (Math.random() + 1).toString(36).substring(7);
   }
 }
