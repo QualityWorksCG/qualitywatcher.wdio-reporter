@@ -27,27 +27,38 @@ export default class qwservice extends WDIOReporter {
   onTestEnd(test) {
     try {
       const { suite_id, test_id } = this.getSuiteAndCaseIds(test.title);
-      if (suite_id && test_id) {
-        let result = {
-          suite_id,
-          test_id,
-          comment: test.error?.message || "",
-          status: test.state,
-          time: test.duration,
-        };
+      const testCaseDetails = {
+        comment: test.error?.message ? test.error?.message?.replace(/\x1b\[[0-9;]*m/g, '') : test.title,
+        status: test.state,
+        time: test.duration || 0,
+        attachments: [],
+        suite_id: suite_id || undefined,
+        test_id: test_id || undefined,
+      };
 
-        this.results.push(result);
+      if (testCaseDetails.suite_id && testCaseDetails.test_id) {
+        this.results.push(testCaseDetails);
+      } else {
+        const newCaseData = {
+          case: {
+            suiteTitle: test.parent,
+            testCaseTitle: test.title,
+            steps: ""
+          },
+          ...testCaseDetails
+        }
+        this.results.push(newCaseData);
       }
     } catch (error) {
       console.error(error);
     }
   }
 
-  onSuiteEnd() {
+  onSuiteEnd(suite) {
     try {
       this.checkDirectory(this.dir);
       fs.writeFileSync(
-        this.dir + `/Suite-${this.results[0].suite_id}[${this.generateRandomString()}].json`,
+        this.dir + `/${suite.uid}[${this.generateRandomString()}].json`,
         JSON.stringify(this.results)
       );
     } catch (err) {
@@ -75,7 +86,7 @@ export default class qwservice extends WDIOReporter {
     }
   }
 
-  generateRandomString(){
+  generateRandomString() {
     return (Math.random() + 1).toString(36).substring(7);
   }
 }
