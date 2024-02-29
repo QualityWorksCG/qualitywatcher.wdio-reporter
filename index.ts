@@ -1,8 +1,8 @@
-const WDIOReporter = require("@wdio/reporter").default;
-const fs = require("fs");
+import WDIOReporter from "@wdio/reporter";
+import fs from "fs";
 const REGEX_SUITE_AND_TEST_ID = /\bS(\d+)C(\d+)\b/g;
 
-export default class qwservice extends WDIOReporter {
+export default class QualityWatcherReporter extends WDIOReporter {
   private _stateCounts = { passed: 0, failed: 0, skipped: 0, total: 0 };
   private results = [];
   private dir = "./QualityWatcher";
