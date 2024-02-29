@@ -1,6 +1,6 @@
 {
   "name": "@qualitywatcher/wdio-reporter",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "WebdriverIO Reporter for QualityWatcher",
   "resolveJsonModule": true,
   "main": "index.js",
@@ -8,7 +8,9 @@
     "WebdriverIO",
     "WDIO",
     "QualityWatcher",
-    "Reporter"
+    "Reporter",
+    "wdio-plugin",
+    "wdio-reporter"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -19,7 +21,7 @@
   "author": "Orane Findley",
   "license": "ISC",
   "dependencies": {
-    "@wdio/reporter": "^7.16.11"
+    "@wdio/reporter": "^8.32.2"
   },
   "devDependencies": {
     "@types/node": "^17.0.25",
