@@ -49,3 +49,6 @@ it("Can authenticate a valid userS5C123", ...
 ```
 
 4. Install [`@qualitywatcher/wdio-service`](https://www.npmjs.com/package/@qualitywatcher/wdio-service) this reporter works in conjunction with that service.
+
+
+NB: To ensure that we can handle retries properly, we had to make a compromise that all test suite (using the describe block in your code base) must have a unique name. 
