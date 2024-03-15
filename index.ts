@@ -4,7 +4,7 @@ const REGEX_SUITE_AND_TEST_ID = /\bS(\d+)C(\d+)\b/g;
 
 export default class QualityWatcherReporter extends WDIOReporter {
   private _stateCounts = { passed: 0, failed: 0, skipped: 0, total: 0 };
-  private results = [];
+  private results = new Map();
   private dir = "./QualityWatcher";
 
   constructor(options) {
@@ -37,7 +37,8 @@ export default class QualityWatcherReporter extends WDIOReporter {
       };
 
       if (testCaseDetails.suite_id && testCaseDetails.test_id) {
-        this.results.push(testCaseDetails);
+        const testKey = `${testCaseDetails.suite_id}-${testCaseDetails.test_id}`;
+        this.results.set(testKey, testCaseDetails);
       } else {
         const newCaseData = {
           case: {
@@ -47,7 +48,8 @@ export default class QualityWatcherReporter extends WDIOReporter {
           },
           ...testCaseDetails
         }
-        this.results.push(newCaseData);
+        const testKey = `${test.parent}-${test.title}`;
+        this.results.set(testKey, newCaseData);
       }
     } catch (error) {
       console.error(error);
@@ -58,8 +60,8 @@ export default class QualityWatcherReporter extends WDIOReporter {
     try {
       this.checkDirectory(this.dir);
       fs.writeFileSync(
-        this.dir + `/${suite.uid}[${this.generateRandomString()}].json`,
-        JSON.stringify(this.results)
+        this.dir + `/${suite.title}.json`,
+        JSON.stringify(Array.from(this.results.values()), null, 2)
       );
     } catch (err) {
       console.error(err);
